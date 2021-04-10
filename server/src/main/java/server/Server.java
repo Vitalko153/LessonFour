@@ -14,17 +14,18 @@ public class Server {
     private static ServerSocket server;
 
     private List<ClientHandler> users;
+    private AuthService authService;
 
     public Server() {
         users = new CopyOnWriteArrayList<>();
+        authService = new SimpleAuthService();
         try {
             server = new ServerSocket(PORT);
             System.out.println("Server started.");
 
             while (true) {
                 socket = server.accept();
-                System.out.println("User" + socket.getRemoteSocketAddress() + " connect");
-                subscribe(new ClientHandler(this, socket));
+                new ClientHandler(this, socket);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,10 +45,21 @@ public class Server {
 
         }
 
-        public void broadcastMsg(String msg){
+        public void broadcastMsg(ClientHandler sender, String msg){
         for (ClientHandler c : users){
-            c.sendMsg(msg);
+            String message = String.format("%s : %s", sender.getNickname(), msg);
+            c.sendMsg(message);
         }
+        }
+
+        public void personalMsg(ClientHandler sender, String recipient, String msg){
+        String personalMsg = String.format("%s to %s --> %s ", sender.getNickname(), recipient, msg);
+            for (ClientHandler c : users){
+                if(c.getNickname().equals(recipient)){
+                    c.sendMsg(personalMsg);
+                    sender.sendMsg(personalMsg);
+                }
+            }
         }
 
         public void subscribe(ClientHandler clientHandler){
@@ -58,18 +70,8 @@ public class Server {
         users.remove(clientHandler);
         }
 
+    public AuthService getAuthService() {
+        return authService;
     }
-
-
-//            Scanner sc = new Scanner(System.in);
-//
-//            Thread threadRead = new Thread(() -> {
-//                try {
-//                    while (true) {
-//                        outMsg.writeUTF(sc.nextLine());
-//                    }
-//                } catch (IOException ioException) {
-//                    ioException.printStackTrace();
-//                }
-//            });
+}
 
