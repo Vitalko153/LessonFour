@@ -15,6 +15,7 @@ public class SimpleAuthService implements AuthService{
             this.nickname = nickname;
         }
     }
+
     //создаем список юзеров.
     private List<UserData> userList;
 

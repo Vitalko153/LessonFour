@@ -42,7 +42,6 @@ public class Server {
             }
         }
 
-
         }
 
         public void broadcastMsg(ClientHandler sender, String msg){

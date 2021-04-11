@@ -30,6 +30,7 @@ public class ClientHandler {
                             System.out.println("User" + socket.getRemoteSocketAddress() + " disconnect.");
                             break;
                         }
+
                         if(str.startsWith("/auth")){
                             String[] token = str.split("\\s+");
                             String newNick = server.getAuthService().getNicknameLogAndPass(token[1], token[2]);

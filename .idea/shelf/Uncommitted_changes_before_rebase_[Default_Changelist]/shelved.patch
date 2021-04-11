@@ -1,0 +1,45 @@
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <option name=\"DEFAULT_COMPILER\" value=\"Javac\" />\r\n    <resourceExtensions />\r\n    <wildcardResourcePatterns>\r\n      <entry name=\"!?*.java\" />\r\n      <entry name=\"!?*.form\" />\r\n      <entry name=\"!?*.class\" />\r\n      <entry name=\"!?*.groovy\" />\r\n      <entry name=\"!?*.scala\" />\r\n      <entry name=\"!?*.flex\" />\r\n      <entry name=\"!?*.kt\" />\r\n      <entry name=\"!?*.clj\" />\r\n    </wildcardResourcePatterns>\r\n    <annotationProcessing>\r\n      <profile default=\"true\" name=\"Default\" enabled=\"false\">\r\n        <processorPath useClasspath=\"true\" />\r\n      </profile>\r\n    </annotationProcessing>\r\n  </component>\r\n</project>\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	
++++ b/.idea/compiler.xml	
+@@ -1,23 +1,17 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="CompilerConfiguration">
+-    <option name="DEFAULT_COMPILER" value="Javac" />
+-    <resourceExtensions />
+-    <wildcardResourcePatterns>
+-      <entry name="!?*.java" />
+-      <entry name="!?*.form" />
+-      <entry name="!?*.class" />
+-      <entry name="!?*.groovy" />
+-      <entry name="!?*.scala" />
+-      <entry name="!?*.flex" />
+-      <entry name="!?*.kt" />
+-      <entry name="!?*.clj" />
+-    </wildcardResourcePatterns>
+     <annotationProcessing>
+-      <profile default="true" name="Default" enabled="false">
+-        <processorPath useClasspath="true" />
++      <profile name="Maven default annotation processors profile" enabled="true">
++        <sourceOutputDir name="target/generated-sources/annotations" />
++        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
++        <outputRelativeToContentRoot value="true" />
++        <module name="client" />
++        <module name="server" />
+       </profile>
+     </annotationProcessing>
++    <bytecodeTargetLevel>
++      <module name="untitled" target="8" />
++    </bytecodeTargetLevel>
+   </component>
+-</project>
+-
++</project>
+\ No newline at end of file
