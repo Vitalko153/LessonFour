@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="947bd044-065e-40f9-944b-4ee4ec4ad047" name="Default Changelist" comment="Начало разработки чата.">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/SimpleAuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyChat.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/resources/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
-    </list>
+    <list default="true" id="947bd044-065e-40f9-944b-4ee4ec4ad047" name="Default Changelist" comment="Добавленна авторизация и лс." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -154,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618081915818</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Добавленна авторизация и лс.">
+      <created>1618094625793</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1618094625793</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -198,6 +194,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Начало разработки чата." />
-    <option name="LAST_COMMIT_MESSAGE" value="Начало разработки чата." />
+    <MESSAGE value="Добавленна авторизация и лс." />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавленна авторизация и лс." />
   </component>
 </project>
