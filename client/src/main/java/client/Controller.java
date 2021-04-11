@@ -96,7 +96,6 @@ public class Controller implements Initializable {
                         }
                     }
 
-
                     //цикл чата.
                     while (true) {
                         String str = inputMsg.readUTF();
