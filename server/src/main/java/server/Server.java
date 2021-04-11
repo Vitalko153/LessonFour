@@ -41,7 +41,6 @@ public class Server {
                 e.printStackTrace();
             }
         }
-
         }
 
         public void broadcastMsg(ClientHandler sender, String msg){

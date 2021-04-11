@@ -126,7 +126,7 @@
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.StartServer" />
       </list>
     </recent_temporary>
   </component>
