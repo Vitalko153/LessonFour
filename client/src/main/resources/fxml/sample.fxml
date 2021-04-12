@@ -13,10 +13,16 @@
    <HBox fx:id="loginBox" managed="true" visible="true">
       <TextField fx:id="loginField" HBox.hgrow="ALWAYS" promptText="login" onAction="#btnSend" />
       <PasswordField fx:id="passwordField" HBox.hgrow="ALWAYS" promptText="password" onAction="#btnSend" />
-      <Button minWidth="100" mnemonicParsing="false" onAction="#login" text="login" GridPane.rowIndex="1" />
+      <Button minWidth="80" mnemonicParsing="false" onAction="#login" text="login" GridPane.rowIndex="1" />
+      <Button minWidth="100" mnemonicParsing="false" onAction="#pressRegistration" text="Registration" GridPane.rowIndex="1" />
    </HBox>
 
-      <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+   <HBox VBox.vgrow="ALWAYS">
+      <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+      <ListView fx:id="userList" managed="false" visible="false" minWidth="100"
+      onMouseReleased="#privateMsg"/>
+   </HBox>
+
    <HBox fx:id="msgBox" managed="false" visible="false">
       <TextField fx:id="textField" HBox.hgrow="ALWAYS" promptText="Input text message" onAction="#btnSend" />
       <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#btnSend" text="Send" GridPane.rowIndex="1" />

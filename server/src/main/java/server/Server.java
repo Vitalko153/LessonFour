@@ -50,26 +50,56 @@ public class Server {
         }
         }
 
+        //Приватные сообщения
         public void personalMsg(ClientHandler sender, String recipient, String msg){
         String personalMsg = String.format("%s to %s --> %s ", sender.getNickname(), recipient, msg);
             for (ClientHandler c : users){
                 if(c.getNickname().equals(recipient)){
                     c.sendMsg(personalMsg);
-                    sender.sendMsg(personalMsg);
+                    if(sender.equals(c)){
+                        return;
+                    }
+                    sender.sendMsg(msg);
+                    return;
                 }
             }
+            sender.sendMsg("User " + recipient + " not found");
         }
 
         public void subscribe(ClientHandler clientHandler){
         users.add(clientHandler);
+        userList();
         }
 
         public void unsubscrebe(ClientHandler clientHandler){
         users.remove(clientHandler);
+        userList();
         }
 
     public AuthService getAuthService() {
         return authService;
+    }
+
+
+    public boolean isLoginAutication(String login){
+        for (ClientHandler c : users){
+            if(c.getLogin().equals(login)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void userList(){
+        StringBuilder sb = new StringBuilder("/userList");
+        for (ClientHandler c : users){
+            sb.append(" ").append(c.getNickname());
+        }
+
+        String msg = sb.toString();
+        for (ClientHandler c : users){
+            c.sendMsg(msg);
+        }
     }
 }
 

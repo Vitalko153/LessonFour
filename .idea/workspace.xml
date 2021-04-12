@@ -4,36 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="947bd044-065e-40f9-944b-4ee4ec4ad047" name="Default Changelist" comment="Домашняя работа номер восемь.">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/ClientHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/Server.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/SimpleAuthService$UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/SimpleAuthService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/ClientHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/Server.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/SimpleAuthService$UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/SimpleAuthService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/ClientHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/Server.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/SimpleAuthService$UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/SimpleAuthService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55__Default_Changelist_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/ClientHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/Server.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/SimpleAuthService$UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/SimpleAuthService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/target/classes/client/RegController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/target/classes/fxml/reg.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/target/classes/fxml/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/target/classes/server/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/server/AuthService.class" afterDir="false" />
-    </list>
+    <list default="true" id="947bd044-065e-40f9-944b-4ee4ec4ad047" name="Default Changelist" comment="Добавленна авторизация и лс." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="LessonFour" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -149,11 +120,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.StartServer" />
         <item itemvalue="Application.Server" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="Application.StartServer" />
       </list>
     </recent_temporary>
   </component>
@@ -180,21 +150,7 @@
       <option name="project" value="LOCAL" />
       <updated>1618094625793</updated>
     </task>
-    <task id="LOCAL-00003" summary="Домашние задание номер семь.">
-      <created>1618162647633</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1618162647633</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Домашняя работа номер восемь.">
-      <created>1618242246186</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1618242246186</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -208,7 +164,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="LessonFour" />
                       </list>
                     </value>
                   </entry>
@@ -239,8 +195,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Начало разработки чата." />
     <MESSAGE value="Добавленна авторизация и лс." />
-    <MESSAGE value="Домашние задание номер семь." />
-    <MESSAGE value="Домашняя работа номер восемь." />
-    <option name="LAST_COMMIT_MESSAGE" value="Домашняя работа номер восемь." />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавленна авторизация и лс." />
   </component>
 </project>
