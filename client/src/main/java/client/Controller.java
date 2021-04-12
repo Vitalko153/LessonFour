@@ -2,13 +2,22 @@ package client;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,6 +40,8 @@ public class Controller implements Initializable {
     public HBox loginBox;
     @FXML
     public HBox msgBox;
+    @FXML
+    public ListView<String> userList;
 
     private  Socket socket;
     private  DataOutputStream outMsg;
@@ -43,6 +54,8 @@ public class Controller implements Initializable {
     private String nickname;
 
     private Stage stage;
+    private Stage regStage;
+    private RegController regController;
 
     public void setAuthentication(boolean authentication) {
         this.authentication = authentication;
@@ -51,6 +64,8 @@ public class Controller implements Initializable {
         loginBox.setManaged(!authentication);
         msgBox.setVisible(authentication);
         msgBox.setManaged(authentication);
+        userList.setVisible(authentication);
+        userList.setManaged(authentication);
 
         if (!authentication){
             nickname = "";
@@ -62,6 +77,17 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(()->{
             stage = (Stage) textArea.getScene().getWindow();
+
+            //закрытие соединения при нажатие на крестик
+            stage.setOnCloseRequest(event -> {
+                if(socket != null && !socket.isClosed()){
+                    try {
+                        outMsg.writeUTF("/exit");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         });
         setAuthentication(false);
     }
@@ -69,7 +95,7 @@ public class Controller implements Initializable {
     private void connect(){
         try {
             socket = new Socket(SERVER_ADDRESS, PORT);
-            System.out.println("User connected");
+            System.out.println("User connected.");
 
             outMsg = new DataOutputStream(socket.getOutputStream());
             inputMsg = new DataInputStream(socket.getInputStream());
@@ -82,6 +108,7 @@ public class Controller implements Initializable {
                         String str = inputMsg.readUTF();
                         if (str.startsWith("/")) {
                             if (str.equals("/exit")) {
+                                outMsg.writeUTF("/exit");
                                 System.out.println("User disconnect.");
                                 break;
                             }
@@ -91,26 +118,48 @@ public class Controller implements Initializable {
                                 textArea.clear();
                                 break;
                             }
+                            if(str.startsWith("/reg_ok")){
+                                regController.resultReg("/reg_ok");
+                            }
+                            if(str.startsWith("/reg_no")){
+                                regController.resultReg("/reg_no");
+                            }
                         } else {
                             textArea.appendText(str + "\n");
                         }
                     }
 
                     //цикл чата.
-                    while (true) {
+                    while (authentication) {
                         String str = inputMsg.readUTF();
-                        if (str.equals("/exit")) {
-                            setAuthentication(false);
-                            System.out.println("User disconnect.");
-                            textArea.clear();
-                            loginField.clear();
-                            break;
+
+                        if (str.startsWith("/")) {
+                            if (str.equals("/exit")) {
+                                setAuthentication(false);
+                                System.out.println("User disconnect.");
+                                textArea.clear();
+                                loginField.clear();
+                                break;
+                            }
+                            //Обновление списака пользователей.
+                            if(str.startsWith("/userList")){
+                                String[] token = str.split("\\s+");
+                                Platform.runLater(()->{
+                                    userList.getItems().clear();
+                                    for (int i = 1; i < token.length; i++){
+                                        userList.getItems().add(token[i]);
+                                    }
+                                });
+                            }
+                        }else {
+                            textArea.appendText(str + "\n");
                         }
-                        textArea.appendText(str + "\n");
+
                     }
-                } catch (IOException e) {
+                }catch (IOException e) {
                     e.printStackTrace();
                 }finally {
+                    ///
                     try {
                         socket.close();
                     } catch (IOException e) {
@@ -162,5 +211,51 @@ public class Controller implements Initializable {
                 stage.setTitle(String.format("MyChat: [ %s ] ", nickname));
             }
         });
+    }
+
+    //выбор пользователя для отправки личных сообщений.
+    public void privateMsg(MouseEvent mouseEvent) {
+        String recepient = userList.getSelectionModel().getSelectedItem();
+        textField.setText("private mess to [" + recepient + "] ");
+    }
+
+    private void createRegWindow(){
+        try{
+            FXMLLoader fl = new FXMLLoader(getClass().getResource("/fxml/reg.fxml"));
+            Parent root = fl.load();
+            regStage = new Stage();
+            regStage.setTitle("Registration");
+            regStage.setScene(new Scene(root, 400, 300));
+
+            regStage.initModality(Modality.APPLICATION_MODAL);
+            regStage.initStyle(StageStyle.UTILITY);
+
+            regController = fl.getController();
+            regController.setController(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pressRegistration(ActionEvent actionEvent) {
+        if(regStage == null){
+            createRegWindow();
+        }
+        Platform.runLater(()-> {
+            regStage.show();
+        });
+
+    }
+
+    public void registration(String login, String password, String nickname){
+        if (socket == null || socket.isClosed()){
+            connect();
+        }
+        String msg = String.format("/reg %s %s %s", login, password, nickname);
+        try {
+            outMsg.writeUTF(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
