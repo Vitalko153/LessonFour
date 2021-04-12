@@ -70,6 +70,7 @@ public class ClientHandler {
                         }
                     }
 
+
                 //цикл отправки сообщений
                 while (true) {
                     String str = inputMsg.readUTF();
