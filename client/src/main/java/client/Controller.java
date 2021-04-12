@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+
 public class Controller implements Initializable {
     @FXML
     public TextField textField;

@@ -16,6 +16,7 @@
       <Button minWidth="100" mnemonicParsing="false" onAction="#login" text="login" GridPane.rowIndex="1" />
    </HBox>
 
+
       <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
    <HBox fx:id="msgBox" managed="false" visible="false">
       <TextField fx:id="textField" HBox.hgrow="ALWAYS" promptText="Input text message" onAction="#btnSend" />

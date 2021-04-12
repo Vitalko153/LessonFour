@@ -5,34 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="947bd044-065e-40f9-944b-4ee4ec4ad047" name="Default Changelist" comment="Домашняя работа номер восемь.">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/ClientHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/Server.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/SimpleAuthService$UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/SimpleAuthService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_54__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/ClientHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/Server.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/SimpleAuthService$UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/SimpleAuthService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/ClientHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/Server.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/SimpleAuthService$UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/SimpleAuthService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55__Default_Changelist_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/ClientHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/Server.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/SimpleAuthService$UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/SimpleAuthService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_56__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/target/classes/client/RegController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/target/classes/fxml/reg.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/target/classes/fxml/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/target/classes/server/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/server/AuthService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/resources/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/sample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/SimpleAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/SimpleAuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/StartServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/StartServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,10 +34,15 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="MyChat" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="CREATE_PULL_REQUEST_DEFAULT_BRANCH" value="MyChat" />
+    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_USER" value="Vitalko153" />
+    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_NAME" value="MyChat" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
