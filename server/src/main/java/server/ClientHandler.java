@@ -33,7 +33,6 @@ public class ClientHandler {
                             System.out.println(socket.getRemoteSocketAddress() + " disconnected.");
                             throw new RuntimeException("User not logged in.");
                         }
-
                         if(str.startsWith("/auth")){
                             String[] token = str.split("\\s+",3);
                             if(token.length < 3){
@@ -70,6 +69,7 @@ public class ClientHandler {
                             }
                         }
                     }
+
                 //цикл отправки сообщений
                 while (true) {
                     String str = inputMsg.readUTF();
