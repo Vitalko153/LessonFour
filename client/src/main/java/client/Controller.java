@@ -59,7 +59,6 @@ public class Controller implements Initializable {
 
     public void setAuthentication(boolean authentication) {
         this.authentication = authentication;
-
         loginBox.setVisible(!authentication);
         loginBox.setManaged(!authentication);
         msgBox.setVisible(authentication);

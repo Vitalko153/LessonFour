@@ -43,6 +43,7 @@ public class Server {
         }
         }
 
+
         public void broadcastMsg(ClientHandler sender, String msg){
         for (ClientHandler c : users){
             String message = String.format("%s : %s", sender.getNickname(), msg);

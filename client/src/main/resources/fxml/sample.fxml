@@ -28,3 +28,4 @@
       <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#btnSend" text="Send" GridPane.rowIndex="1" />
    </HBox>
 </VBox>
+

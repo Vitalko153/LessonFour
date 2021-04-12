@@ -9,7 +9,6 @@ public class SimpleAuthService implements AuthService {
         String password;
         String nickname;
 
-
         public UserData(String login, String password, String nickname) {
             this.login = login;
             this.password = password;

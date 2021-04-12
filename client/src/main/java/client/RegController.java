@@ -18,7 +18,6 @@ public class RegController {
     private TextArea textArea;
 
 
-
     public void resultReg(String result){
         if(result.equals("/reg_ok")){
             clearFields();

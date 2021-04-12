@@ -108,6 +108,7 @@ public class ClientHandler {
                         }
                     }
             });
+
             thRead.setDaemon(true);
             thRead.start();
 
