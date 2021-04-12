@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1" date="1618214144858" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 12.04.2021 10:55 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="server/target/classes/server/ClientHandler.class" />
+    <option name="AFTER_PATH" value="server/target/classes/server/ClientHandler.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/ClientHandler.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="server/target/classes/server/Server.class" />
+    <option name="AFTER_PATH" value="server/target/classes/server/Server.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/Server.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="server/target/classes/server/SimpleAuthService.class" />
+    <option name="AFTER_PATH" value="server/target/classes/server/SimpleAuthService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/SimpleAuthService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="server/target/classes/server/SimpleAuthService$UserData.class" />
+    <option name="AFTER_PATH" value="server/target/classes/server/SimpleAuthService$UserData.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_04_2021_10_55_[Default_Changelist]1/SimpleAuthService$UserData.class" />
+  </binary>
+</changelist>

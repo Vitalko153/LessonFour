@@ -1,0 +1,283 @@
+Index: client/src/main/java/client/Controller.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package client;\r\n\r\nimport javafx.application.Platform;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.Initializable;\r\nimport javafx.scene.control.PasswordField;\r\nimport javafx.scene.control.TextArea;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.layout.HBox;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.DataInputStream;\r\nimport java.io.DataOutputStream;\r\nimport java.io.IOException;\r\nimport java.net.Socket;\r\nimport java.net.URL;\r\nimport java.util.ResourceBundle;\r\nimport java.util.Scanner;\r\n\r\npublic class Controller implements Initializable {\r\n    @FXML\r\n    public TextField textField;\r\n    @FXML\r\n    public TextArea textArea;\r\n    @FXML\r\n    public TextField loginField;\r\n    @FXML\r\n    public PasswordField passwordField;\r\n    @FXML\r\n    public HBox loginBox;\r\n    @FXML\r\n    public HBox msgBox;\r\n\r\n    private  Socket socket;\r\n    private  DataOutputStream outMsg;\r\n    private  DataInputStream inputMsg;\r\n\r\n    private final int PORT = 8189;\r\n    private String SERVER_ADDRESS = \"localhost\";\r\n\r\n    private boolean authentication;\r\n    private String nickname;\r\n\r\n    private Stage stage;\r\n\r\n    public void setAuthentication(boolean authentication) {\r\n        this.authentication = authentication;\r\n\r\n        loginBox.setVisible(!authentication);\r\n        loginBox.setManaged(!authentication);\r\n        msgBox.setVisible(authentication);\r\n        msgBox.setManaged(authentication);\r\n\r\n        if (!authentication){\r\n            nickname = \"\";\r\n        }\r\n        setTitle(nickname);\r\n    }\r\n\r\n    @Override\r\n    public void initialize(URL location, ResourceBundle resources) {\r\n        Platform.runLater(()->{\r\n            stage = (Stage) textArea.getScene().getWindow();\r\n        });\r\n        setAuthentication(false);\r\n    }\r\n\r\n    private void connect(){\r\n        try {\r\n            socket = new Socket(SERVER_ADDRESS, PORT);\r\n            System.out.println(\"User connected\");\r\n\r\n            outMsg = new DataOutputStream(socket.getOutputStream());\r\n            inputMsg = new DataInputStream(socket.getInputStream());\r\n\r\n            //Поток для приема сообщений.\r\n            Thread thread = new Thread(() -> {\r\n                try {\r\n                    //цикл аунтификации.\r\n                    while (true) {\r\n                        String str = inputMsg.readUTF();\r\n                        if (str.startsWith(\"/\")) {\r\n                            if (str.equals(\"/exit\")) {\r\n                                System.out.println(\"User disconnect.\");\r\n                                break;\r\n                            }\r\n                            if(str.startsWith(\"/auth_ok\")){\r\n                                nickname =str.split(\"\\\\s+\")[1];\r\n                                setAuthentication(true);\r\n                                textArea.clear();\r\n                                break;\r\n                            }\r\n                        } else {\r\n                            textArea.appendText(str + \"\\n\");\r\n                        }\r\n                    }\r\n\r\n                    //цикл чата.\r\n                    while (true) {\r\n                        String str = inputMsg.readUTF();\r\n                        if (str.equals(\"/exit\")) {\r\n                            setAuthentication(false);\r\n                            System.out.println(\"User disconnect.\");\r\n                            textArea.clear();\r\n                            loginField.clear();\r\n                            break;\r\n                        }\r\n                        textArea.appendText(str + \"\\n\");\r\n                    }\r\n                } catch (IOException e) {\r\n                    e.printStackTrace();\r\n                }finally {\r\n                    try {\r\n                        socket.close();\r\n                    } catch (IOException e) {\r\n                        e.printStackTrace();\r\n                    }\r\n                }\r\n            });\r\n            thread.setDaemon(true);\r\n            thread.start();\r\n\r\n        } catch (IOException ioException) {\r\n            ioException.printStackTrace();\r\n        }\r\n    }\r\n\r\n    //Отправка сообщений.\r\n    @FXML\r\n    public void btnSend() {\r\n        try {\r\n            outMsg.writeUTF(textField.getText());\r\n            textField.clear();\r\n            textField.requestFocus();\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    //Воод логина и пароля.\r\n    @FXML\r\n    public void login() {\r\n        if (socket == null || socket.isClosed()){\r\n            connect();\r\n        }\r\n        String msg = String.format(\"/auth %s %s\", loginField.getText().trim(), passwordField.getText().trim());\r\n\r\n        try {\r\n            outMsg.writeUTF(msg);\r\n            passwordField.clear();\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    private void setTitle(String nickname){\r\n        Platform.runLater(()->{\r\n            if(nickname.equals(\"\")){\r\n                stage.setTitle(\"MyChat\");\r\n            }else {\r\n                stage.setTitle(String.format(\"MyChat: [ %s ] \", nickname));\r\n            }\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/client/src/main/java/client/Controller.java b/client/src/main/java/client/Controller.java
+--- a/client/src/main/java/client/Controller.java	(revision 8b6c95af0a60302072f1344affc740163aa1c789)
++++ b/client/src/main/java/client/Controller.java	(date 1618214086697)
+@@ -2,6 +2,7 @@
+ 
+ import javafx.application.Platform;
+ import javafx.event.ActionEvent;
++import javafx.event.EventHandler;
+ import javafx.fxml.FXML;
+ import javafx.fxml.Initializable;
+ import javafx.scene.control.PasswordField;
+@@ -9,6 +10,7 @@
+ import javafx.scene.control.TextField;
+ import javafx.scene.layout.HBox;
+ import javafx.stage.Stage;
++import javafx.stage.WindowEvent;
+ 
+ import java.io.DataInputStream;
+ import java.io.DataOutputStream;
+@@ -62,6 +64,15 @@
+     public void initialize(URL location, ResourceBundle resources) {
+         Platform.runLater(()->{
+             stage = (Stage) textArea.getScene().getWindow();
++            stage.setOnCloseRequest(event -> {
++                if(socket != null && socket.isClosed()){
++                    try {
++                        outMsg.writeUTF("/exit");
++                    } catch (IOException e) {
++                        e.printStackTrace();
++                    }
++                }
++            });
+         });
+         setAuthentication(false);
+     }
+@@ -82,7 +93,7 @@
+                         String str = inputMsg.readUTF();
+                         if (str.startsWith("/")) {
+                             if (str.equals("/exit")) {
+-                                System.out.println("User disconnect.");
++                                outMsg.writeUTF("/exit");
+                                 break;
+                             }
+                             if(str.startsWith("/auth_ok")){
+@@ -108,9 +119,10 @@
+                         }
+                         textArea.appendText(str + "\n");
+                     }
+-                } catch (IOException e) {
++                }catch (IOException e) {
+                     e.printStackTrace();
+                 }finally {
++                    ///
+                     try {
+                         socket.close();
+                     } catch (IOException e) {
+Index: server/src/main/java/server/Server.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package server;\r\n\r\nimport java.io.IOException;\r\nimport java.net.ServerSocket;\r\nimport java.net.Socket;\r\nimport java.util.List;\r\nimport java.util.concurrent.CopyOnWriteArrayList;\r\n\r\npublic class Server {\r\n\r\n    private static final int PORT = 8189;\r\n\r\n    private static Socket socket;\r\n    private static ServerSocket server;\r\n\r\n    private List<ClientHandler> users;\r\n    private AuthService authService;\r\n\r\n    public Server() {\r\n        users = new CopyOnWriteArrayList<>();\r\n        authService = new SimpleAuthService();\r\n        try {\r\n            server = new ServerSocket(PORT);\r\n            System.out.println(\"Server started.\");\r\n\r\n            while (true) {\r\n                socket = server.accept();\r\n                new ClientHandler(this, socket);\r\n            }\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n            }finally {\r\n            try {\r\n                socket.close();\r\n            } catch (IOException e) {\r\n                e.printStackTrace();\r\n            }\r\n            try {\r\n                server.close();\r\n            } catch (IOException e) {\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n\r\n\r\n        }\r\n\r\n        public void broadcastMsg(ClientHandler sender, String msg){\r\n        for (ClientHandler c : users){\r\n            String message = String.format(\"%s : %s\", sender.getNickname(), msg);\r\n            c.sendMsg(message);\r\n        }\r\n        }\r\n\r\n        public void personalMsg(ClientHandler sender, String recipient, String msg){\r\n        String personalMsg = String.format(\"%s to %s --> %s \", sender.getNickname(), recipient, msg);\r\n            for (ClientHandler c : users){\r\n                if(c.getNickname().equals(recipient)){\r\n                    c.sendMsg(personalMsg);\r\n                    sender.sendMsg(personalMsg);\r\n                }\r\n            }\r\n        }\r\n\r\n        public void subscribe(ClientHandler clientHandler){\r\n        users.add(clientHandler);\r\n        }\r\n\r\n        public void unsubscrebe(ClientHandler clientHandler){\r\n        users.remove(clientHandler);\r\n        }\r\n\r\n    public AuthService getAuthService() {\r\n        return authService;\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/server/Server.java b/server/src/main/java/server/Server.java
+--- a/server/src/main/java/server/Server.java	(revision 8b6c95af0a60302072f1344affc740163aa1c789)
++++ b/server/src/main/java/server/Server.java	(date 1618214118623)
+@@ -52,14 +52,20 @@
+         }
+         }
+ 
++        //Приватные сообщения
+         public void personalMsg(ClientHandler sender, String recipient, String msg){
+         String personalMsg = String.format("%s to %s --> %s ", sender.getNickname(), recipient, msg);
+             for (ClientHandler c : users){
+                 if(c.getNickname().equals(recipient)){
+                     c.sendMsg(personalMsg);
+-                    sender.sendMsg(personalMsg);
++                    if(sender.equals(c)){
++                        return;
++                    }
++                    sender.sendMsg(msg);
++                    return;
+                 }
+             }
++            sender.sendMsg("User " + recipient + " not found");
+         }
+ 
+         public void subscribe(ClientHandler clientHandler){
+@@ -73,5 +79,15 @@
+     public AuthService getAuthService() {
+         return authService;
+     }
++
++
++    public boolean isLoginAutication(String login){
++        for (ClientHandler c : users){
++            if(c.getLogin().equals(login)){
++                return true;
++            }
++        }
++        return false;
++    }
+ }
+ 
+Index: server/src/main/java/server/ClientHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package server;\r\n\r\nimport java.io.DataInputStream;\r\nimport java.io.DataOutputStream;\r\nimport java.io.IOException;\r\nimport java.net.Socket;\r\n\r\npublic class ClientHandler {\r\n    private Server server;\r\n    private Socket socket;\r\n    private DataOutputStream outMsg;\r\n    private DataInputStream inputMsg;\r\n    private String nickname;\r\n\r\n    public ClientHandler(Server server, Socket socket) {\r\n        try {\r\n            this.server = server;\r\n            this.socket = socket;\r\n\r\n            inputMsg = new DataInputStream(socket.getInputStream());\r\n            outMsg = new DataOutputStream(socket.getOutputStream());\r\n\r\n            Thread thRead = new Thread(() -> {\r\n                try {\r\n                    //цикл авторизации.\r\n                    while (true) {\r\n                        String str = inputMsg.readUTF();\r\n                        if (str.equals(\"/exit\")) {\r\n                            outMsg.writeUTF(\"/exit\");\r\n                            System.out.println(\"User\" + socket.getRemoteSocketAddress() + \" disconnect.\");\r\n                            break;\r\n                        }\r\n                        if(str.startsWith(\"/auth\")){\r\n                            String[] token = str.split(\"\\\\s+\");\r\n                            String newNick = server.getAuthService().getNicknameLogAndPass(token[1], token[2]);\r\n                            if(newNick != null){\r\n                                nickname = newNick;\r\n                                sendMsg(\"/auth_ok \" + nickname);\r\n                                server.subscribe(this);\r\n                                System.out.println(\"User: \" + nickname + \". Socket\" + socket.getRemoteSocketAddress() + \" connected\");\r\n                                break;\r\n                            }else{\r\n                                sendMsg(\"Неверный логин или пароль.\");\r\n                            }\r\n                        }\r\n                    }\r\n\r\n                //цикл отправки сообщений\r\n                while (true) {\r\n                    String str = inputMsg.readUTF();\r\n                    if (str.startsWith(\"/\")) {\r\n                        if (str.equals(\"/exit\")) {\r\n                            outMsg.writeUTF(\"/exit\");\r\n                            System.out.println(\"User\" + socket.getRemoteSocketAddress() + \" disconnect.\");\r\n                            break;\r\n                        }\r\n                        //Отправка личных сообщений.\r\n                        if (str.startsWith(\"/w\")) {\r\n                            String[] token = str.split(\"\\\\s+\", 3);\r\n                            server.personalMsg(this, token[1], token[2]);\r\n                        }\r\n                    }else {\r\n                        server.broadcastMsg(this, str);\r\n                    }\r\n                }\r\n                    } catch (IOException e) {\r\n                        e.printStackTrace();\r\n                    }finally {\r\n                    server.unsubscrebe(this);\r\n                        try {\r\n                            socket.close();\r\n                        } catch (IOException e) {\r\n                            e.printStackTrace();\r\n                        }\r\n                    }\r\n            });\r\n            thRead.setDaemon(true);\r\n            thRead.start();\r\n\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void sendMsg(String msg){\r\n        try {\r\n            outMsg.writeUTF(msg);\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public String getNickname() {\r\n        return nickname;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/server/ClientHandler.java b/server/src/main/java/server/ClientHandler.java
+--- a/server/src/main/java/server/ClientHandler.java	(revision 8b6c95af0a60302072f1344affc740163aa1c789)
++++ b/server/src/main/java/server/ClientHandler.java	(date 1618214086718)
+@@ -11,6 +11,7 @@
+     private DataOutputStream outMsg;
+     private DataInputStream inputMsg;
+     private String nickname;
++    private String login;
+ 
+     public ClientHandler(Server server, Socket socket) {
+         try {
+@@ -25,22 +26,27 @@
+                     //цикл авторизации.
+                     while (true) {
+                         String str = inputMsg.readUTF();
++
+                         if (str.equals("/exit")) {
+                             outMsg.writeUTF("/exit");
+-                            System.out.println("User" + socket.getRemoteSocketAddress() + " disconnect.");
+-                            break;
++                            throw new RuntimeException("User disconnect");
+                         }
+                         if(str.startsWith("/auth")){
+                             String[] token = str.split("\\s+");
+                             String newNick = server.getAuthService().getNicknameLogAndPass(token[1], token[2]);
+                             if(newNick != null){
+-                                nickname = newNick;
+-                                sendMsg("/auth_ok " + nickname);
+-                                server.subscribe(this);
+-                                System.out.println("User: " + nickname + ". Socket" + socket.getRemoteSocketAddress() + " connected");
+-                                break;
++                                login = token[1];
++                                if(!server.isLoginAutication(login)){
++                                    nickname = newNick;
++                                    sendMsg("/auth_ok " + nickname);
++                                    server.subscribe(this);
++                                    System.out.println("User: " + nickname + ". Socket" + socket.getRemoteSocketAddress() + " connected");
++                                    break;
++                                } else {
++                                    sendMsg("User is login logged in");
++                                }
+                             }else{
+-                                sendMsg("Неверный логин или пароль.");
++                                sendMsg("Incorrect login or password.");
+                             }
+                         }
+                     }
+@@ -63,6 +69,8 @@
+                         server.broadcastMsg(this, str);
+                     }
+                 }
++                    }catch (RuntimeException e) {
++                    System.out.println(e.getMessage());
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }finally {
+@@ -93,4 +101,8 @@
+     public String getNickname() {
+         return nickname;
+     }
++
++    public String getLogin() {
++        return login;
++    }
+ }
+Index: client/src/main/java/client/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package client;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\npublic class Main extends Application {\r\n\r\n    @Override\r\n    public void start(Stage primaryStage) throws Exception{\r\n        Parent root = FXMLLoader.load(getClass().getResource(\"/sample.fxml\"));\r\n        primaryStage.setTitle(\"MyChat\");\r\n        primaryStage.setScene(new Scene(root, 400, 400));\r\n        primaryStage.show();\r\n    }\r\n\r\n\r\n    public static void main(String[] args) {\r\n        launch(args);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/client/src/main/java/client/Main.java b/client/src/main/java/client/Main.java
+--- a/client/src/main/java/client/Main.java	(revision 8b6c95af0a60302072f1344affc740163aa1c789)
++++ b/client/src/main/java/client/Main.java	(date 1618214086780)
+@@ -10,7 +10,7 @@
+ 
+     @Override
+     public void start(Stage primaryStage) throws Exception{
+-        Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
++        Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
+         primaryStage.setTitle("MyChat");
+         primaryStage.setScene(new Scene(root, 400, 400));
+         primaryStage.show();
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"947bd044-065e-40f9-944b-4ee4ec4ad047\" name=\"Default Changelist\" comment=\"Добавленна авторизация и лс.\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CodeStyleSettingsInfer\">\r\n    <option name=\"done\" value=\"true\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"LessonFour\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectCodeStyleSettingsMigration\">\r\n    <option name=\"version\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1qlToDQpYv5zsticAqDdAOZx3Il\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/client/src/main/java\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.0\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.0\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\W153\\IdeaProjects\\MyChat\\client\\src\\main\\java\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\W153\\IdeaProjects\\MyChat\\client\\src\\main\\resources\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"client\" />\r\n      <recent name=\"server\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.StartServer\">\r\n    <configuration name=\"Client\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"client.Client\" />\r\n      <module name=\"client\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"server.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" singleton=\"false\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"client.Main\" />\r\n      <module name=\"client\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"server.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Server\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"server.Server\" />\r\n      <module name=\"server\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"server.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"StartServer\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"server.StartServer\" />\r\n      <module name=\"server\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"server.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Application.Client\" />\r\n      <item itemvalue=\"Application.Main\" />\r\n      <item itemvalue=\"Application.Server\" />\r\n      <item itemvalue=\"Application.StartServer\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.StartServer\" />\r\n        <item itemvalue=\"Application.Server\" />\r\n        <item itemvalue=\"Application.Client\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"947bd044-065e-40f9-944b-4ee4ec4ad047\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1617468579365</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1617468579365</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Начало разработки чата.\">\r\n      <created>1618081915818</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1618081915818</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Добавленна авторизация и лс.\">\r\n      <created>1618094625793</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1618094625793</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"LessonFour\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"Branch\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"master\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Начало разработки чата.\" />\r\n    <MESSAGE value=\"Добавленна авторизация и лс.\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Добавленна авторизация и лс.\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 8b6c95af0a60302072f1344affc740163aa1c789)
++++ b/.idea/workspace.xml	(date 1618214087259)
+@@ -4,7 +4,9 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="947bd044-065e-40f9-944b-4ee4ec4ad047" name="Default Changelist" comment="Добавленна авторизация и лс." />
++    <list default="true" id="947bd044-065e-40f9-944b-4ee4ec4ad047" name="Default Changelist" comment="Домашние задание номер семь.">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -24,7 +26,7 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="LessonFour" />
++        <entry key="$PROJECT_DIR$" value="master" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -120,10 +122,11 @@
+     </list>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Application.Main" />
+         <item itemvalue="Application.StartServer" />
+         <item itemvalue="Application.Server" />
++        <item itemvalue="Application.Main" />
+         <item itemvalue="Application.Client" />
++        <item itemvalue="Application.StartServer" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -150,7 +153,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1618094625793</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="Домашние задание номер семь.">
++      <created>1618162647633</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1618162647633</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -164,7 +174,7 @@
+                   <entry key="branch">
+                     <value>
+                       <list>
+-                        <option value="LessonFour" />
++                        <option value="origin/master" />
+                       </list>
+                     </value>
+                   </entry>
+@@ -195,6 +205,7 @@
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Начало разработки чата." />
+     <MESSAGE value="Добавленна авторизация и лс." />
+-    <option name="LAST_COMMIT_MESSAGE" value="Добавленна авторизация и лс." />
++    <MESSAGE value="Домашние задание номер семь." />
++    <option name="LAST_COMMIT_MESSAGE" value="Домашние задание номер семь." />
+   </component>
+ </project>
+\ No newline at end of file
+diff --git a/client/src/main/resources/sample.fxml b/client/src/main/resources/fxml/sample.fxml
+rename from client/src/main/resources/sample.fxml
+rename to client/src/main/resources/fxml/sample.fxml
