@@ -24,7 +24,8 @@ public class ClientHandler {
 
             Thread thRead = new Thread(() -> {
                 try {
-//                    socket.setSoTimeout(2000);  //таймаут на бездействие.
+                    socket.setSoTimeout(120000);  //таймаут на бездействие.
+
                     //цикл авторизации.
                     while (true) {
                         String str = inputMsg.readUTF();
@@ -38,11 +39,11 @@ public class ClientHandler {
                             if(token.length < 3){
                                 continue;
                             }
-                            socket.setSoTimeout(2000);
+                            socket.setSoTimeout(0);
                             String newNick = server.getAuthService().getNicknameLogAndPass(token[1], token[2]);
                             if(newNick != null){
                                 login = token[1];
-                                if(!server.isLoginAutication(login)){
+                                if(!server.isLoginAuthication(login)){
                                     nickname = newNick;
                                     sendMsg("/auth_ok " + nickname);
                                     server.subscribe(this);
@@ -55,6 +56,7 @@ public class ClientHandler {
                                 sendMsg("Incorrect login or password.");
                             }
                         }
+
                         //регистрация
                         if(str.startsWith("/reg")){
                             String[] token = str.split("\\s+", 4);
@@ -69,7 +71,6 @@ public class ClientHandler {
                             }
                         }
                     }
-
 
                 //цикл отправки сообщений
                 while (true) {
@@ -87,6 +88,22 @@ public class ClientHandler {
                         }
                     }else {
                         server.broadcastMsg(this, str);
+                    }
+
+                    //Смена ника.
+                    if(str.startsWith("/change")){
+                        String[] token = str.split("\\s+", 2);
+                        if (token.length < 2){
+                            continue;
+                        }
+                        if(server.getAuthService().changeNick(this.nickname, token[1])){
+                            sendMsg("/newNick " + token[1]);
+                            sendMsg("You new nick " + token[1] + ".");
+                            this.nickname = token[1];
+                            server.userList();
+                        }else{
+                            sendMsg("This nickname occupied.");
+                        }
                     }
                 }
                     }catch (SocketTimeoutException e){

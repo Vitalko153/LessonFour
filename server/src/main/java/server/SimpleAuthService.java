@@ -47,4 +47,9 @@ public class SimpleAuthService implements AuthService {
             userList.add(new UserData(login, password, nickname));
             return true;
         }
+
+    @Override
+    public boolean changeNick(String oldNickname, String newNickName) {
+        return false;
     }
+}

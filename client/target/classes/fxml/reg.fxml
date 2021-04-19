@@ -17,5 +17,4 @@
         <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
         <Button  minWidth="100"  onAction="#registration" text="Registration" />
     </VBox>
-
 </VBox>

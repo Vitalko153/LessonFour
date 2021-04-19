@@ -150,9 +150,14 @@ public class Controller implements Initializable {
                                     }
                                 });
                             }
+                            if (str.startsWith("/newNick ")){
+                                nickname = str.split(" ")[1];
+                                setTitle(nickname);
+                            }
                         }else {
                             textArea.appendText(str + "\n");
                         }
+
 
                     }
                 }catch (IOException e) {

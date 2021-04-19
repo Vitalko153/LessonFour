@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -16,9 +17,14 @@ public class Server {
     private List<ClientHandler> users;
     private AuthService authService;
 
+
     public Server() {
         users = new CopyOnWriteArrayList<>();
-        authService = new SimpleAuthService();
+        if(!DatabaseAuthService.isSqlConnect()){
+            throw new RuntimeException("Not connect to Database.");
+        }
+        authService = new DatabaseAuthService();
+
         try {
             server = new ServerSocket(PORT);
             System.out.println("Server started.");
@@ -30,6 +36,7 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
             }finally {
+            DatabaseAuthService.disconnect();
             try {
                 socket.close();
             } catch (IOException e) {
@@ -43,7 +50,7 @@ public class Server {
         }
         }
 
-
+        //Отправка сообщения всем.
         public void broadcastMsg(ClientHandler sender, String msg){
         for (ClientHandler c : users){
             String message = String.format("%s : %s", sender.getNickname(), msg);
@@ -82,7 +89,7 @@ public class Server {
     }
 
 
-    public boolean isLoginAutication(String login){
+    public boolean isLoginAuthication(String login){
         for (ClientHandler c : users){
             if(c.getLogin().equals(login)){
                 return true;
