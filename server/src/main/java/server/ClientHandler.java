@@ -81,6 +81,7 @@ public class ClientHandler {
                             System.out.println("User" + socket.getRemoteSocketAddress() + " disconnect.");
                             break;
                         }
+
                         //Отправка личных сообщений.
                         if (str.startsWith("/w")) {
                             String[] token = str.split("\\s+", 3);

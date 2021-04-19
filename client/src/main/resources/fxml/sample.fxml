@@ -10,6 +10,7 @@
       <URL value = "@/css/style.css"/>
    </stylesheets>
 
+
    <HBox fx:id="loginBox" managed="true" visible="true">
       <TextField fx:id="loginField" HBox.hgrow="ALWAYS" promptText="login" onAction="#btnSend" />
       <PasswordField fx:id="passwordField" HBox.hgrow="ALWAYS" promptText="password" onAction="#btnSend" />

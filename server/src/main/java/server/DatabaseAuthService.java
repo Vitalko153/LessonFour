@@ -2,6 +2,7 @@ package server;
 
 import java.sql.*;
 
+
 public class DatabaseAuthService implements AuthService {
     private static Connection connection;
     private static PreparedStatement psAuthorisation;

@@ -98,6 +98,7 @@ public class Server {
         return false;
     }
 
+
     public void userList(){
         StringBuilder sb = new StringBuilder("/userList");
         for (ClientHandler c : users){
