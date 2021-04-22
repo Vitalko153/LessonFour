@@ -19,9 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,10 +50,12 @@ public class Controller implements Initializable {
 
     private boolean authentication;
     private String nickname;
+    private String login;
 
     private Stage stage;
     private Stage regStage;
     private RegController regController;
+    TextChatHandler historySave = new TextChatHandler();
 
     public void setAuthentication(boolean authentication) {
         this.authentication = authentication;
@@ -99,6 +99,7 @@ public class Controller implements Initializable {
             outMsg = new DataOutputStream(socket.getOutputStream());
             inputMsg = new DataInputStream(socket.getInputStream());
 
+
             //Поток для приема сообщений.
             Thread thread = new Thread(() -> {
                 try {
@@ -113,6 +114,7 @@ public class Controller implements Initializable {
                             }
                             if(str.startsWith("/auth_ok")){
                                 nickname =str.split("\\s+")[1];
+                                login = str.split("\\s")[2];
                                 setAuthentication(true);
                                 textArea.clear();
                                 break;
@@ -127,6 +129,8 @@ public class Controller implements Initializable {
                             textArea.appendText(str + "\n");
                         }
                     }
+
+                    textArea.appendText(historySave.readHistory(login));
 
                     //цикл чата.
                     while (authentication) {
@@ -155,6 +159,7 @@ public class Controller implements Initializable {
                                 setTitle(nickname);
                             }
                         }else {
+                            historySave.writeHistory(str, login);
                             textArea.appendText(str + "\n");
                         }
 

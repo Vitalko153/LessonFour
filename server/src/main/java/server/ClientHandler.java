@@ -36,6 +36,7 @@ public class ClientHandler {
                         }
                         if(str.startsWith("/auth")){
                             String[] token = str.split("\\s+",3);
+                            //Указаны не все данные при аутифекацие
                             if(token.length < 3){
                                 continue;
                             }
@@ -45,7 +46,7 @@ public class ClientHandler {
                                 login = token[1];
                                 if(!server.isLoginAuthication(login)){
                                     nickname = newNick;
-                                    sendMsg("/auth_ok " + nickname);
+                                    sendMsg("/auth_ok " + nickname + " " + login);
                                     server.subscribe(this);
                                     System.out.println("User: " + nickname + ". Socket" + socket.getRemoteSocketAddress() + " connected.");
                                     break;
