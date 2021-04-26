@@ -22,7 +22,7 @@ public class ClientHandler {
             inputMsg = new DataInputStream(socket.getInputStream());
             outMsg = new DataOutputStream(socket.getOutputStream());
 
-            Thread thRead = new Thread(() -> {
+            server.getExecutorService().execute(() -> {
                 try {
                     socket.setSoTimeout(120000);  //таймаут на бездействие.
 
@@ -127,9 +127,6 @@ public class ClientHandler {
                         }
                     }
             });
-
-            thRead.setDaemon(true);
-            thRead.start();
 
         } catch (IOException e) {
             e.printStackTrace();
